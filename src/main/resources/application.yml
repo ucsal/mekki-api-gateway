@@ -1,0 +1,48 @@
+# application.yml do API Gateway
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      # Propriedades de descoberta de serviço, agora em gateway.discovery.locator
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      # AS ROTAS AGORA VÃO PARA gateway.server.webflux.routes
+      server: # <-- NOVA SEÇÃO
+        webflux: # <-- NOVA SEÇÃO
+          routes:
+            - id: auth-service-route
+              uri: lb://MEKKI-AUTH
+              predicates:
+                - Path=/auth/**
+
+            - id: user-service-route
+              uri: lb://MEKKI-USER
+              predicates:
+                 - Path=/user/**
+
+
+
+            - id: session-service-route
+              uri: lb://MEKKI-SESSION
+              predicates:
+                  - Path=/session/**
+
+
+
+            - id: room-service-route
+              uri: lb://MEKKI-ROOM
+              predicates:
+                        - Path=/room/**
+
+
+  # Configuração do Eureka Client
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761
+
