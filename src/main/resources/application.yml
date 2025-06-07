@@ -6,10 +6,10 @@ spring:
   cloud:
     gateway:
       # Propriedades de descoberta de serviço, agora em gateway.discovery.locator
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+    #  discovery:
+     #   locator:
+     #     enabled: true
+     #     lower-case-service-id: true
 
       # AS ROTAS AGORA VÃO PARA gateway.server.webflux.routes
       server: # <-- NOVA SEÇÃO
