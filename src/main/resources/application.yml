@@ -5,15 +5,15 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      # Propriedades de descoberta de serviço, agora em gateway.discovery.locator
+      # Propriedades de descoberta de serviï¿½o, agora em gateway.discovery.locator
     #  discovery:
      #   locator:
      #     enabled: true
      #     lower-case-service-id: true
 
-      # AS ROTAS AGORA VÃO PARA gateway.server.webflux.routes
-      server: # <-- NOVA SEÇÃO
-        webflux: # <-- NOVA SEÇÃO
+      # AS ROTAS AGORA Vï¿½O PARA gateway.server.webflux.routes
+      server: # <-- NOVA SEï¿½ï¿½O
+        webflux: # <-- NOVA SEï¿½ï¿½O
           routes:
             - id: auth-service-route
               uri: lb://MEKKI-AUTH
@@ -24,7 +24,6 @@ spring:
               uri: lb://MEKKI-USER
               predicates:
                  - Path=/user/**
-
 
 
             - id: session-service-route
@@ -40,7 +39,7 @@ spring:
                         - Path=/room/**
 
 
-  # Configuração do Eureka Client
+  # Configuraï¿½ï¿½o do Eureka Client
   eureka:
     client:
       service-url:

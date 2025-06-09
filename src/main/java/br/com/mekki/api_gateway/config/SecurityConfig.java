@@ -28,6 +28,7 @@ public class SecurityConfig {
                         exchange
 
                                 .pathMatchers("/auth/**").permitAll()
+                                .pathMatchers("/user/register").permitAll()
                                 .pathMatchers("/user/listall").hasRole("ADMIN")
                                 .anyExchange().authenticated()
                 )

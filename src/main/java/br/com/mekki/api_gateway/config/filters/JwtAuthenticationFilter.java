@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter implements WebFilter {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
 
-        if (path.startsWith("/auth")) {
+        if (path.startsWith("/auth") || path.startsWith("/user/register")) {
             return chain.filter(exchange);
         }
 
@@ -40,6 +40,8 @@ public class JwtAuthenticationFilter implements WebFilter {
 
             String user = claims.getSubject();
 
+            Integer userId = claims.get("username", Integer.class);
+
             String roles = claims.get("authorities", String.class);
             List<GrantedAuthority> grantedAuths = AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
 
@@ -48,7 +50,7 @@ public class JwtAuthenticationFilter implements WebFilter {
 
             ServerHttpRequest mutatedRequest = exchange.getRequest().mutate()
                     .header("X-User-Id", user) // ID do usuário
-                    .header("X-User-Roles", String.join(",", roles)) // Roles como string separada por vírgulas
+                    .header("X-id", userId.toString()) // Roles como string separada por vírgulas
                     // Opcional: Se os serviços de backend precisarem do token original, envie-o
                     // .header("X-Auth-Token", token)
                     .build();
